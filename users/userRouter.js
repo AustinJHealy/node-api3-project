@@ -1,8 +1,9 @@
 const express = require('express');
-const router = express.Router();
 const userData = require("./userDb");
 const postData = require("../posts/postDb");
+const router = express.Router();
 
+router.use(express.json());
 
 function validateUser(req, res, next) {
   if (req.body.name) {
@@ -12,6 +13,7 @@ function validateUser(req, res, next) {
   } else {
     res.status(400).json({ error: "Please provide a name" });
   };
+};
 function validateUserId(req, res, next) {
   if (req.params.id) {
     next();
@@ -19,6 +21,7 @@ function validateUserId(req, res, next) {
     res.status(400).json({ error: "User ID not found" });
   }
 };
+
 function validatePost(req, res, next) {
   if (req.body.text && req.body.user_id) {
     next();
@@ -134,7 +137,7 @@ router.put('/:id', validateUserId, (req, res) => {
    console.log(err);
    res
     .status(500)
-    .json({error: "Unable to edit user"}) 
+    .json({error: "Unable to edit user"});
+ })
 });
-
 module.exports = router;

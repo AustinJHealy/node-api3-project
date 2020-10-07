@@ -58,5 +58,5 @@ router.put("/:id", (req, res) => {
 
 function validatePostId(req, res, next) {
 }
-
+});
 module.exports = router;
